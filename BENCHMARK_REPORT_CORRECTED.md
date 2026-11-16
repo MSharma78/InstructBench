@@ -7,7 +7,7 @@
 
 ## CRITICAL ISSUE: Data Quality Problem with Qwen
 
-**Qwen 3.5 27B failed to generate responses for 216/541 prompts (39.9%)**
+**Qwen 3.5 27B failed to generate responses for 218/541 prompts (40.3%)**
 
 These failures appear as None values in the response file and were skipped during evaluation. This means:
 - Initial report showing "92% pass rate" for Qwen was misleading
@@ -24,7 +24,7 @@ These failures appear as None values in the response file and were skipped durin
 |------|-------|------|------|---------|----------------|
 | 1 | **Llama 3.3 70B** | 477 | 64 | 0 | **88.2%** |
 | 2 | **Gemma 4 26B** | 469 | 72 | 0 | **86.7%** |
-| 3 | **Qwen 3.5 27B** | 297 | 26 | 216 | **54.9%** |
+| 3 | **Qwen 3.5 27B** | 297 | 26 | 218 | **54.9%** |
 
 ### By Pass Rate (Excluding Generation Failures - Initial Metric)
 
@@ -49,7 +49,7 @@ These failures appear as None values in the response file and were skipped durin
 ### Why Qwen Lost Despite Higher Pass Rate
 
 **Critical problems:**
-1. **39.9% generation failure rate** - Unacceptable reliability
+1. **40.3% generation failure rate** - Unacceptable reliability
 2. **92% pass rate is on a biased subset** - Only the "easy" prompts it could generate
 3. **Likely causes:**
    - OpenRouter API timeouts on complex prompts
@@ -68,7 +68,7 @@ These failures appear as None values in the response file and were skipped durin
 
 ## What Went Wrong with Qwen
 
-The 216 None responses in Qwen's file indicate:
+The 218 None responses in Qwen's file indicate:
 - Generation requests that failed to return content
 - Possibly due to:
   - API connection timeouts during generation

@@ -154,8 +154,8 @@ Total: about 780 lines of project code (excluding the IFEval checker code).
 
 ## Known Limitations
 
-- **Empty answers are skipped, not failed.** If a model returns `None`, `score.py` skips that prompt. The prompt does not count in the score. Qwen returned `None` for 216 of 541 prompts (40%), so its score in `scores.json` is too high. The correct fix: treat `None` as `""`, so the official checkers count it as a fail.
-- **Other errors skip the prompt.** If an API call fails with an error other than 429, `generate.py` logs the error and goes to the next prompt. No line is saved. The Qwen file has 539 lines, not 541.
+- **Empty answers are skipped, not failed.** If a model returns `None`, `score.py` skips that prompt. The prompt does not count in the score. Qwen returned `None` for 218 of 541 prompts (40%), so its score in `scores.json` is too high. The correct fix: treat `None` as `""`, so the official checkers count it as a fail.
+- **Other errors skip the prompt.** If an API call fails with an error other than 429, `generate.py` logs the error and goes to the next prompt. No line is saved. In the first run, this happened for 2 Qwen prompts. A second run of `generate.py` filled them (Qwen returned `None` for both). Now all three response files have 541 lines.
 - **Fixed token cap.** `max_tokens` is 1024 for every prompt. A long-answer instruction can fail because the answer was cut off.
 - **Official IFEval layout.** `score.py` depends on the folder layout of the official IFEval code. If Google changes that layout, update the imports and paths.
 - **No checkpoints in scoring.** If `score.py` crashes, run it again. It scores all responses again.

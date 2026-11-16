@@ -14,7 +14,7 @@ All three run through [OpenRouter](https://openrouter.ai) with one API key.
 
 ## Results
 
-541 prompts per model. An empty or missing answer counts as a fail.
+541 prompts per model. An empty answer counts as a fail.
 
 | Model | Pass | Fail | No answer | Pass rate |
 |-------|------|------|-----------|-----------|
@@ -77,7 +77,7 @@ Optional: `python detailed_analysis.py` writes `BENCHMARK_REPORT.md` with exampl
 ## Known Issues
 
 - `score.py` and `detailed_analysis.py` still skip empty answers. They do not count them as fails yet. The corrected report has the right numbers.
-- 2 Qwen prompts (key 201 and key 3195) have no answer because the API call failed. Run `generate.py` again to fill them.
+- In the first run, 2 Qwen API calls failed, so those prompts had no answer. I ran `generate.py` again to fill them, and Qwen gave empty answers for both. Now all three models have 541 responses.
 - `max_tokens` is 1024, so a long answer can get cut off.
 
 ## Next Step
