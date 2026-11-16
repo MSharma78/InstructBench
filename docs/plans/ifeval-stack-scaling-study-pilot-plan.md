@@ -2,8 +2,7 @@
 title: "IFEval-Stack: Instruction-Density × Model-Size Scaling Study (Pilot)"
 type: feat
 status: active
-date: 2026-06-28
-origin: docs/brainstorms/2026-06-28-instruction-density-scaling-study-brainstorm.md
+origin: docs/brainstorms/instruction-density-scaling-study-brainstorm.md
 ---
 
 # ✨ IFEval-Stack: Instruction-Density × Model-Size Scaling Study (Pilot)
@@ -20,7 +19,7 @@ below a pass-rate floor. Aimed at a publishable paper.
 
 This plan covers the **Pilot tier** only (≈3,000 API calls, $5–15): prove the
 method end-to-end and produce a draft phase diagram before committing to the Mid
-/ Full tiers (see brainstorm: docs/brainstorms/2026-06-28-instruction-density-scaling-study-brainstorm.md).
+/ Full tiers (see brainstorm: docs/brainstorms/instruction-density-scaling-study-brainstorm.md).
 
 ## Problem Statement / Motivation
 
@@ -186,7 +185,7 @@ failed **but tagged**, so analysis can report both "IF on valid responses" and
    open-weight curve; reasoning models marked (confound caveat in caption).
 5. **Serial-position profiles** per model size bucket.
 
-## Pilot Model Grid (exact OpenRouter IDs, catalog snapshot 2026-06-28)
+## Pilot Model Grid (exact OpenRouter IDs)
 
 **Open-weight dense ladder (8)** — anchored by a 5-point *within-family* Llama 3.x
 line (gold standard for isolating size):
@@ -305,7 +304,7 @@ analysis are **deferred to Mid/Full**.
 ## Sources & References
 
 ### Origin
-- **Brainstorm:** [docs/brainstorms/2026-06-28-instruction-density-scaling-study-brainstorm.md](../brainstorms/2026-06-28-instruction-density-scaling-study-brainstorm.md)
+- **Brainstorm:** [docs/brainstorms/instruction-density-scaling-study-brainstorm.md](../brainstorms/instruction-density-scaling-study-brainstorm.md)
   — carried forward: hybrid axis (native k≤3 cross-check + synthetic stacking),
   open-weight + frontier analyzed separately, Pilot-first scale, reasoning models
   mixed into frontier band, conflict-matrix + within-family + failure-taxonomy

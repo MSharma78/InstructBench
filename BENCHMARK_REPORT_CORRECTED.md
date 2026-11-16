@@ -1,6 +1,5 @@
 # IFEval Benchmark: CORRECTED Final Report
 
-**Date:** 2026-06-26  
 **Dataset:** 541 IFEval instruction-following prompts  
 **Models:** Qwen 3.5 27B, Llama 3.3 70B, Gemma 4 26B
 
@@ -110,6 +109,8 @@ This is **not** an instruction-following issue, but a **generation reliability i
 ---
 
 ## Cost vs. Performance
+
+**Total cost of the run:** about $14.97 in OpenRouter credits for all three models (541 prompts each).
 
 - **Llama:** Best value - reliable + good accuracy
 - **Gemma:** Close second - similar reliability, slightly lower accuracy

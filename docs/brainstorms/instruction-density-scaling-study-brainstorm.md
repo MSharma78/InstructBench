@@ -1,5 +1,4 @@
 ---
-date: 2026-06-28
 topic: instruction-density-scaling-study
 ---
 
@@ -62,7 +61,7 @@ forcing closed models onto a parameter x-axis.
   "instruction capacity" — the k at which a model drops below a threshold
   (e.g., 50% all-pass).
 
-## Scale / Cost Tiers (OpenRouter, live pricing 2026-06-28)
+## Scale / Cost Tiers (OpenRouter pricing)
 
 | Tier  | Models                | k-levels | prompts × inst. | calls    | est. cost |
 |-------|-----------------------|----------|-----------------|----------|-----------|

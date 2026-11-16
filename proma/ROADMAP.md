@@ -2,8 +2,8 @@
 
 **Terminal goal:** A publishable instruction-density × model-size scaling study: a 2D phase diagram (model × k → fraction of instructions followed) and a fitted instruction-capacity law k*(N), built on the IFEval verifiable-checker harness. Pilot tier first.
 
-**Plan of record:** docs/plans/2026-06-28-feat-ifeval-stack-scaling-study-pilot-plan.md
-**Origin brainstorm:** docs/brainstorms/2026-06-28-instruction-density-scaling-study-brainstorm.md
+**Plan of record:** docs/plans/ifeval-stack-scaling-study-pilot-plan.md
+**Origin brainstorm:** docs/brainstorms/instruction-density-scaling-study-brainstorm.md
 
 ---
 

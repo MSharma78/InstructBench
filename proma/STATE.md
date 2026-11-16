@@ -18,7 +18,7 @@
 - (none)
 
 ## Daily Summary (tick-00)
-ProMa infused into Instruct-Bench and seeded from the Pilot plan (docs/plans/2026-06-28-feat-ifeval-stack-scaling-study-pilot-plan.md). 3 epics, 14 tasks, 3 inbox gates, 8 ADRs created. Phase-1 foundation work (registry/conflict/compose/topics/dataset) is unblocked and ready; generation work waits on IN-001 (API + budget).
+ProMa infused into Instruct-Bench and seeded from the Pilot plan (docs/plans/ifeval-stack-scaling-study-pilot-plan.md). 3 epics, 14 tasks, 3 inbox gates, 8 ADRs created. Phase-1 foundation work (registry/conflict/compose/topics/dataset) is unblocked and ready; generation work waits on IN-001 (API + budget).
 
 ## Progress Log
 - 2026-06-28: Project scaffolded via ProMa (manual /proma:init equivalent), seeded from Pilot plan.

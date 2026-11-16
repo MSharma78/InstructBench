@@ -42,11 +42,8 @@ wheels/
 .env.*.local
 
 # Project-specific
-scores/
-responses/
+# Official IFEval code from Google. Get it with: bash download_ifeval.sh
 instruction_following_eval/
-*.jsonl
-*.csv
 
 # Jupyter
 .ipynb_checkpoints/

@@ -2,7 +2,7 @@
 
 Instruction-density × model-size scaling study of LLM instruction-following, built
 on the IFEval verifiable-checker harness. Plan of record:
-`docs/plans/2026-06-28-feat-ifeval-stack-scaling-study-pilot-plan.md`.
+`docs/plans/ifeval-stack-scaling-study-pilot-plan.md`.
 
 <!-- PROMA:START -->
 ## ProMa — Project Management Protocol

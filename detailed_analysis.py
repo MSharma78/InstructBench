@@ -103,7 +103,6 @@ def main():
     # Generate report
     report = []
     report.append("# IFEval Benchmark: Detailed Analysis Report\n\n")
-    report.append("Date: 2026-06-26\n")
     report.append("Dataset: 541 IFEval instruction-following prompts\n")
     report.append("Models: Qwen 3.5 27B, Llama 3.3 70B, Gemma 4 26B\n\n")
 

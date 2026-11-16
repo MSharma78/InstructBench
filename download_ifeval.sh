@@ -55,8 +55,8 @@ if [ -f "instruction_following_eval/data/input_data.jsonl" ]; then
     echo ""
     echo "Key files ready:"
     echo "  • instruction_following_eval/data/input_data.jsonl"
-    echo "    → ~540 IFEval prompts"
-    echo "  • instruction_following_eval/evaluation/eval_utils.py"
+    echo "    → 541 IFEval prompts"
+    echo "  • instruction_following_eval/evaluation_lib.py"
     echo "    → Official instruction checkers"
     echo ""
 else
