@@ -73,9 +73,9 @@ Solution: `compare.py` prints the table to the terminal *and* saves it to CSV.
             │   - Load responses from JSONL            │
             │   - Load original prompts + instructions │
             │   - Import official evaluation_lib       │
+            │   - Turn None or missing answers into "" │
+            │     (the checker then marks them failed) │
             │   - For each response:                   │
-            │     * Skip it if the response is None    │
-            │       (see Known Limitations)            │
             │     * Check each instruction             │
             │     * Record strict/loose pass           │
             │   - Compute 4 metrics (prompt/instr      │
@@ -140,7 +140,7 @@ Total: about 780 lines of project code (excluding the IFEval checker code).
 | File | What it shows |
 |------|---------------|
 | `BENCHMARK_REPORT.md` | First report, written by `detailed_analysis.py`. It skipped Qwen's empty answers, so it shows Qwen as the winner. Wrong. |
-| `BENCHMARK_REPORT_CORRECTED.md` | Corrected report. It counts the empty answers as failures. Winner: Llama 3.3 70B (88.2%). Qwen: 54.9%. |
+| `BENCHMARK_REPORT_CORRECTED.md` | Corrected report. It counts the empty answers as failures. Winner: Llama 3.3 70B (88.0%). Qwen: 54.7%. |
 
 ## Extending the Project
 
@@ -154,7 +154,7 @@ Total: about 780 lines of project code (excluding the IFEval checker code).
 
 ## Known Limitations
 
-- **Empty answers are skipped, not failed.** If a model returns `None`, `score.py` skips that prompt. The prompt does not count in the score. Qwen returned `None` for 218 of 541 prompts (40%), so its score in `scores.json` is too high. The correct fix: treat `None` as `""`, so the official checkers count it as a fail.
+- **`detailed_analysis.py` still skips empty answers.** `score.py` turns a `None` or missing answer into `""`, so the official checkers count it as a fail. `detailed_analysis.py` does not do this yet, so `BENCHMARK_REPORT.md` still shows Qwen as the winner. Qwen returned `None` for 218 of 541 prompts (40%).
 - **Other errors skip the prompt.** If an API call fails with an error other than 429, `generate.py` logs the error and goes to the next prompt. No line is saved. In the first run, this happened for 2 Qwen prompts. A second run of `generate.py` filled them (Qwen returned `None` for both). Now all three response files have 541 lines.
 - **Fixed token cap.** `max_tokens` is 1024 for every prompt. A long-answer instruction can fail because the answer was cut off.
 - **Official IFEval layout.** `score.py` depends on the folder layout of the official IFEval code. If Google changes that layout, update the imports and paths.

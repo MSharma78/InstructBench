@@ -18,13 +18,13 @@ All three run through [OpenRouter](https://openrouter.ai) with one API key.
 
 | Model | Pass | Fail | No answer | Pass rate |
 |-------|------|------|-----------|-----------|
-| Llama 3.3 70B | 477 | 64 | 0 | **88.2%** |
-| Gemma 4 26B | 469 | 72 | 0 | **86.7%** |
-| Qwen 3.5 27B | 297 | 26 | 218 | **54.9%** |
+| Llama 3.3 70B | 476 | 65 | 0 | **88.0%** |
+| Gemma 4 26B | 468 | 73 | 0 | **86.5%** |
+| Qwen 3.5 27B | 296 | 27 | 218 | **54.7%** |
 
 **Llama 3.3 70B wins.** It answered every prompt.
 
-Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.9%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](BENCHMARK_REPORT_CORRECTED.md).
+Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.7%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](BENCHMARK_REPORT_CORRECTED.md).
 
 Total cost: about $14.97 in OpenRouter credits.
 
@@ -76,7 +76,7 @@ Optional: `python detailed_analysis.py` writes `BENCHMARK_REPORT.md` with exampl
 
 ## Known Issues
 
-- `score.py` and `detailed_analysis.py` still skip empty answers. They do not count them as fails yet. The corrected report has the right numbers.
+- `score.py` now counts empty answers as fails. `detailed_analysis.py` still skips them, so `BENCHMARK_REPORT.md` is still wrong.
 - In the first run, 2 Qwen API calls failed, so those prompts had no answer. I ran `generate.py` again to fill them, and Qwen gave empty answers for both. Now all three models have 541 responses.
 - `max_tokens` is 1024, so a long answer can get cut off.
 
