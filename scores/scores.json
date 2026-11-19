@@ -10,17 +10,17 @@
   {
     "name": "Qwen 3.5 27B",
     "skipped": false,
-    "prompt_level_strict": 91.64,
-    "instruction_level_strict": 93.37,
-    "prompt_level_loose": 94.12,
-    "instruction_level_loose": 95.45
+    "prompt_level_strict": 54.71,
+    "instruction_level_strict": 54.08,
+    "prompt_level_loose": 56.38,
+    "instruction_level_loose": 55.4
   },
   {
     "name": "Gemma 4 26B",
     "skipped": false,
     "prompt_level_strict": 86.51,
     "instruction_level_strict": 90.53,
-    "prompt_level_loose": 87.8,
-    "instruction_level_loose": 91.61
+    "prompt_level_loose": 87.99,
+    "instruction_level_loose": 91.73
   }
 ]

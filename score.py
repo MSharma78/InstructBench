@@ -26,7 +26,7 @@ import sys
 from dotenv import load_dotenv
 from config import MODELS, RESPONSES_DIR, SCORES_DIR
 
-# Load API keys from .env file (not used in score.py, but good practice).
+# Load API keys from .env file
 load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -87,13 +87,14 @@ def score_model(model_config: dict) -> dict:
     prompt_to_response = evaluation_lib.read_prompt_to_response_dict(str(response_file))
     logger.info(f"Loaded {len(prompt_to_response)} responses")
 
+    # Empty or missing answers as "" so official checker marks them as failed
+    for inp in inputs:
+        prompt_to_response[inp.prompt] = prompt_to_response.get(inp.prompt) or ""
+
     # Evaluate in strict mode.
     logger.info("Evaluating strict mode...")
     outputs_strict = []
     for inp in inputs:
-        # Skip if we don't have a response for this prompt or if response is None.
-        if inp.prompt not in prompt_to_response or prompt_to_response[inp.prompt] is None:
-            continue
         output = evaluation_lib.test_instruction_following_strict(inp, prompt_to_response)
         outputs_strict.append(output)
 
@@ -101,9 +102,6 @@ def score_model(model_config: dict) -> dict:
     logger.info("Evaluating loose mode...")
     outputs_loose = []
     for inp in inputs:
-        # Skip if we don't have a response for this prompt or if response is None.
-        if inp.prompt not in prompt_to_response or prompt_to_response[inp.prompt] is None:
-            continue
         output = evaluation_lib.test_instruction_following_loose(inp, prompt_to_response)
         outputs_loose.append(output)
 
