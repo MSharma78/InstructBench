@@ -1,4 +1,4 @@
 Model,Prompt Strict %,Instruction Strict %,Prompt Loose %,Instruction Loose %
-Llama 3.3 70B,87.99,91.61,90.57,93.41
-Qwen 3.5 27B,91.64,93.37,94.12,95.45
-Gemma 4 26B,86.51,90.53,87.8,91.61
+Llama 3.3 70B,88.17,91.73,90.57,93.41
+Qwen 3.5 27B,54.9,54.2,56.38,55.4
+Gemma 4 26B,86.69,90.65,87.99,91.73

@@ -86,7 +86,7 @@ Solution: `compare.py` prints the table to the terminal *and* saves it to CSV.
             scores/scores.json
             {
               "name": "Llama 3.3 70B",
-              "prompt_level_strict": 87.99,
+              "prompt_level_strict": 88.17,
               ...
             }
                               ↓
@@ -100,14 +100,12 @@ Solution: `compare.py` prints the table to the terminal *and* saves it to CSV.
                               ↓
             Terminal:                    scores/comparison.csv
             Model            | P Strict % | ... |
-            Llama 3.3 70B   | 88.0       | ... |
+            Llama 3.3 70B   | 88.2       | ... |
             ...
 ```
 
-One more script reads the results after `score.py`:
-- `detailed_analysis.py` scores the responses again in strict mode. It writes `BENCHMARK_REPORT.md` with failing examples.
-
-This script also skips `None` responses, so it names Qwen as the winner. That verdict is wrong. See `BENCHMARK_REPORT_CORRECTED.md`.
+One more script reads the responses after `score.py`:
+- `failure_analysis.py` checks every answer again in strict mode. It writes `FAILURE_ANALYSIS.md`: how often each instruction type failed for each model, and every failed prompt with the names of the failed instructions. Empty answers get counted on their own, not checked.
 
 ## Key Design Decisions
 
@@ -127,20 +125,21 @@ This script also skips `None` responses, so it names Qwen as the winner. That ve
 |------|-------|---------|
 | config.py | 33 | Model list, rate limit, and output folders. Edit here to add models. |
 | generate.py | 184 | Call the models, save JSONL, back off on 429. |
-| score.py | 169 | Run official checkers, compute metrics. |
+| score.py | 175 | Run official checkers, compute metrics. |
 | compare.py | 89 | Read scores, print table, save CSV. |
-| detailed_analysis.py | 219 | Write BENCHMARK_REPORT.md with failing examples. Old result. |
+| failure_analysis.py | 86 | Write FAILURE_ANALYSIS.md: failed instruction types and every failed prompt. |
 | download_ifeval.sh | 71 | Download the official IFEval folder (one-time setup). |
 | requirements.txt | 13 | Python dependencies. |
 
-Total: about 780 lines of project code (excluding the IFEval checker code).
+Total: about 650 lines of project code (excluding the IFEval checker code).
 
 ## Reports
 
 | File | What it shows |
 |------|---------------|
-| `BENCHMARK_REPORT.md` | First report, written by `detailed_analysis.py`. It skipped Qwen's empty answers, so it shows Qwen as the winner. Wrong. |
-| `BENCHMARK_REPORT_CORRECTED.md` | Corrected report. It counts the empty answers as failures. Winner: Llama 3.3 70B (88.0%). Qwen: 54.7%. |
+| `BENCHMARK_REPORT.md` | First report, written by the old `detailed_analysis.py` (now replaced by `failure_analysis.py`). It skipped Qwen's empty answers, so it shows Qwen as the winner. Wrong. Kept as a record. |
+| `BENCHMARK_REPORT_CORRECTED.md` | Corrected report. It counts the empty answers as failures. Winner: Llama 3.3 70B (88.2%). Qwen: 54.9%. |
+| `FAILURE_ANALYSIS.md` | Written by `failure_analysis.py`. Failed instruction types per model, and every failed prompt. |
 
 ## Extending the Project
 
@@ -148,13 +147,14 @@ Total: about 780 lines of project code (excluding the IFEval checker code).
 
 **Change metrics:** Edit the `metrics` list in `compare.py` to show different columns.
 
-**Analyze by instruction type:** Change `score.py` to group results by constraint type (for example, "word count" or "contains phrase"). Then you can see which types a model fails.
+**Analyze by instruction type:** Run `failure_analysis.py`. It counts the failures for each instruction type (for example, "word count" or "contains phrase").
 
 **Change generation settings:** Edit `temperature` or `max_tokens` in `generate.py`. Then generate again.
 
 ## Known Limitations
 
-- **`detailed_analysis.py` still skips empty answers.** `score.py` turns a `None` or missing answer into `""`, so the official checkers count it as a fail. `detailed_analysis.py` does not do this yet, so `BENCHMARK_REPORT.md` still shows Qwen as the winner. Qwen returned `None` for 218 of 541 prompts (40%).
+- **Random letter for 2 prompts.** Prompts 1122 and 1129 ask for `#` and `!`. The official `letter_frequency` checker accepts only a–z, so it picks a random letter instead (`instructions.py`, line 1343). `score.py` and `failure_analysis.py` call `random.seed(0)` before each check, so every run gives the same result.
+- **Empty answers count as fails.** `score.py` turns a `None` or missing answer into `""`, so the official checkers mark it as failed. Qwen returned `None` for 218 of 541 prompts (40%).
 - **Other errors skip the prompt.** If an API call fails with an error other than 429, `generate.py` logs the error and goes to the next prompt. No line is saved. In the first run, this happened for 2 Qwen prompts. A second run of `generate.py` filled them (Qwen returned `None` for both). Now all three response files have 541 lines.
 - **Fixed token cap.** `max_tokens` is 1024 for every prompt. A long-answer instruction can fail because the answer was cut off.
 - **Official IFEval layout.** `score.py` depends on the folder layout of the official IFEval code. If Google changes that layout, update the imports and paths.

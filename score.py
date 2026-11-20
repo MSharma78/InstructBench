@@ -21,10 +21,15 @@ The official IFEval evaluation_lib handles all the complexity:
 import json
 import logging
 from pathlib import Path
+import random
 import sys
 
 from dotenv import load_dotenv
 from config import MODELS, RESPONSES_DIR, SCORES_DIR
+from langdetect import DetectorFactory
+
+# Fix the language detector seed, so every run gives the same result.
+DetectorFactory.seed = 0
 
 # Load API keys from .env file
 load_dotenv()
@@ -95,6 +100,8 @@ def score_model(model_config: dict) -> dict:
     logger.info("Evaluating strict mode...")
     outputs_strict = []
     for inp in inputs:
+        # Same dice roll every time (Google's letter checker picks a random letter for # and !).
+        random.seed(0)
         output = evaluation_lib.test_instruction_following_strict(inp, prompt_to_response)
         outputs_strict.append(output)
 
@@ -102,6 +109,7 @@ def score_model(model_config: dict) -> dict:
     logger.info("Evaluating loose mode...")
     outputs_loose = []
     for inp in inputs:
+        random.seed(0)
         output = evaluation_lib.test_instruction_following_loose(inp, prompt_to_response)
         outputs_loose.append(output)
 

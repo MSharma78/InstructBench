@@ -18,13 +18,13 @@ All three run through [OpenRouter](https://openrouter.ai) with one API key.
 
 | Model | Pass | Fail | No answer | Pass rate |
 |-------|------|------|-----------|-----------|
-| Llama 3.3 70B | 476 | 65 | 0 | **88.0%** |
-| Gemma 4 26B | 468 | 73 | 0 | **86.5%** |
-| Qwen 3.5 27B | 296 | 27 | 218 | **54.7%** |
+| Llama 3.3 70B | 477 | 64 | 0 | **88.2%** |
+| Gemma 4 26B | 469 | 72 | 0 | **86.7%** |
+| Qwen 3.5 27B | 297 | 26 | 218 | **54.9%** |
 
 **Llama 3.3 70B wins.** It answered every prompt.
 
-Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.7%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](BENCHMARK_REPORT_CORRECTED.md).
+Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.9%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](BENCHMARK_REPORT_CORRECTED.md).
 
 Total cost: about $14.97 in OpenRouter credits.
 
@@ -58,7 +58,7 @@ python score.py                # score them
 python compare.py              # print the table
 ```
 
-Optional: `python detailed_analysis.py` writes `BENCHMARK_REPORT.md` with example failures.
+Optional: `python failure_analysis.py` writes `FAILURE_ANALYSIS.md`. It shows which instructions each model fails.
 
 ## Files
 
@@ -68,15 +68,16 @@ Optional: `python detailed_analysis.py` writes `BENCHMARK_REPORT.md` with exampl
 | `generate.py` | Gets the answers. Saves them in `responses/`. |
 | `score.py` | Scores the answers. Saves `scores/scores.json`. |
 | `compare.py` | Prints the table. Saves `scores/comparison.csv`. |
-| `detailed_analysis.py` | Writes `BENCHMARK_REPORT.md` with example failures. |
+| `failure_analysis.py` | Writes `FAILURE_ANALYSIS.md`: which instructions failed, for every model. |
 | `download_ifeval.sh` | One-time setup. Gets the IFEval code. |
 | `ARCHITECTURE.md` | How the code works. |
 | `BENCHMARK_REPORT.md` | My first report. Wrong: it skipped Qwen's empty answers. |
 | `BENCHMARK_REPORT_CORRECTED.md` | The corrected report. |
+| `FAILURE_ANALYSIS.md` | Which instruction types each model failed, and every failed prompt. |
 
 ## Known Issues
 
-- `score.py` now counts empty answers as fails. `detailed_analysis.py` still skips them, so `BENCHMARK_REPORT.md` is still wrong.
+- 2 prompts (key 1122 and key 1129) ask for the characters `#` and `!`. Google's letter checker only accepts a–z, so it checks a random letter instead. I fixed the random choice with `random.seed(0)`, so every run gives the same score.
 - In the first run, 2 Qwen API calls failed, so those prompts had no answer. I ran `generate.py` again to fill them, and Qwen gave empty answers for both. Now all three models have 541 responses.
 - `max_tokens` is 1024, so a long answer can get cut off.
 

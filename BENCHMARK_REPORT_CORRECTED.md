@@ -12,7 +12,7 @@
 These failures appear as None values in the response file and were skipped during evaluation. This means:
 - Initial report showing "92% pass rate" for Qwen was misleading
 - That 92% was only calculated on 323 valid responses
-- The true pass rate including generation failures: **54.7%**
+- The true pass rate including generation failures: **54.9%**
 
 ---
 
@@ -22,17 +22,17 @@ These failures appear as None values in the response file and were skipped durin
 
 | Rank | Model | Pass | Fail | Skipped | True Pass Rate |
 |------|-------|------|------|---------|----------------|
-| 1 | **Llama 3.3 70B** | 476 | 65 | 0 | **88.0%** |
-| 2 | **Gemma 4 26B** | 468 | 73 | 0 | **86.5%** |
-| 3 | **Qwen 3.5 27B** | 296 | 27 | 218 | **54.7%** |
+| 1 | **Llama 3.3 70B** | 477 | 64 | 0 | **88.2%** |
+| 2 | **Gemma 4 26B** | 469 | 72 | 0 | **86.7%** |
+| 3 | **Qwen 3.5 27B** | 297 | 26 | 218 | **54.9%** |
 
 ### By Pass Rate (Excluding Generation Failures - Initial Metric)
 
 | Rank | Model | Valid | Pass | Pass Rate |
 |------|-------|-------|------|-----------|
-| 1 | **Qwen 3.5 27B** | 323 | 296 | 91.6% |
-| 2 | **Llama 3.3 70B** | 541 | 476 | 88.0% |
-| 3 | **Gemma 4 26B** | 541 | 468 | 86.5% |
+| 1 | **Qwen 3.5 27B** | 323 | 297 | 92.0% |
+| 2 | **Llama 3.3 70B** | 541 | 477 | 88.2% |
+| 3 | **Gemma 4 26B** | 541 | 469 | 86.7% |
 
 ---
 
@@ -42,7 +42,7 @@ These failures appear as None values in the response file and were skipped durin
 
 **Why Llama wins:**
 1. **Reliability:** Generated responses for ALL 541 prompts (100% reliability)
-2. **Instruction following:** 88.0% pass rate on those responses
+2. **Instruction following:** 88.2% pass rate on those responses
 3. **No generation failures:** Every prompt received a valid response
 4. **Consistent quality:** No significant issues
 
@@ -50,7 +50,7 @@ These failures appear as None values in the response file and were skipped durin
 
 **Critical problems:**
 1. **40.3% generation failure rate** - Unacceptable reliability
-2. **91.6% pass rate is on a biased subset** - Only the "easy" prompts it could generate
+2. **92% pass rate is on a biased subset** - Only the "easy" prompts it could generate
 3. **Likely causes:**
    - OpenRouter API timeouts on complex prompts
    - Rate limiting issues that returned None
@@ -59,7 +59,7 @@ These failures appear as None values in the response file and were skipped durin
 
 ### Gemma's Position
 
-- **86.5% pass rate** - Solid third place
+- **86.7% pass rate** - Solid third place
 - **100% generation reliability** - All prompts got responses
 - Gap to Llama: 1.5% - Close competition
 - Slightly better than Qwen on real-world reliability comparison
@@ -85,7 +85,7 @@ This is **not** an instruction-following issue, but a **generation reliability i
 ### For Production Use: **Use Llama 3.3 70B**
 
 - **Reliability:** 100% - every request gets a response
-- **Accuracy:** 88.0% - instruction-following quality
+- **Accuracy:** 88.2% - instruction-following quality
 - **Real-world performance:** Best combination of reliability and accuracy
 
 ### For Evaluation Tasks Only: Qwen ONLY if you can:
@@ -100,11 +100,11 @@ This is **not** an instruction-following issue, but a **generation reliability i
 | Metric | Llama | Gemma | Qwen |
 |--------|-------|-------|------|
 | **Generation Reliability** | 100% | 100% | 60% |
-| **Instruction-Following Accuracy** | 88.0% | 86.5% | 91.6%* |
-| **Real-World Pass Rate** | 88.0% | 86.5% | 54.7% |
+| **Instruction-Following Accuracy** | 88.2% | 86.7% | 92.0%* |
+| **Real-World Pass Rate** | 88.2% | 86.7% | 54.9% |
 | **Recommended for Production** | YES | MAYBE | NO |
 
-*Qwen's 91.6% is only on responses that were successfully generated; not comparable due to selection bias.
+*Qwen's 92% is only on responses that were successfully generated; not comparable due to selection bias.
 
 ---
 
