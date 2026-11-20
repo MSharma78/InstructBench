@@ -52,6 +52,7 @@ compare.py    → prints a table, saves a CSV
 python -m venv venv
 venv\Scripts\activate          # Mac/Linux: source venv/bin/activate
 pip install -r requirements.txt
+python -c "import nltk; nltk.download('punkt_tab')"   # data the IFEval checkers need
 cp .env.example .env           # then add your OPENROUTER_API_KEY
 bash download_ifeval.sh        # gets the official IFEval code and prompts
 ```
