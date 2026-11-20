@@ -28,6 +28,12 @@ Qwen looked like the winner at first (92%). But it gave no answer for 218 prompt
 
 Total cost: about $14.97 in OpenRouter credits.
 
+> [!IMPORTANT]
+> **I found a bug in Google's IFEval.** 2 prompts (key 1122 and key 1129) ask the model to use `#` and `!` a number of times.
+> But the official `letter_frequency` checker only accepts the letters a–z. For any other character, it picks a random letter and counts that letter instead.
+> So these 2 checks never test `#` or `!`, and the score can change by 1 prompt between runs.
+> I fixed the random choice with `random.seed(0)`, so every run gives the same score.
+
 ## How It Works
 
 ```
@@ -77,7 +83,6 @@ Optional: `python failure_analysis.py` writes `FAILURE_ANALYSIS.md`. It shows wh
 
 ## Known Issues
 
-- 2 prompts (key 1122 and key 1129) ask for the characters `#` and `!`. Google's letter checker only accepts a–z, so it checks a random letter instead. I fixed the random choice with `random.seed(0)`, so every run gives the same score.
 - In the first run, 2 Qwen API calls failed, so those prompts had no answer. I ran `generate.py` again to fill them, and Qwen gave empty answers for both. Now all three models have 541 responses.
 - `max_tokens` is 1024, so a long answer can get cut off.
 

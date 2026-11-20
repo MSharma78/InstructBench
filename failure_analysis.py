@@ -58,6 +58,17 @@ names = list(failures)
 lines = ["# Failure Analysis", ""]
 lines.append("Strict mode. Empty answers are counted on their own and are not in the instruction table.")
 lines.append("")
+
+# highlights the bug i found in google's ifeval
+lines += [
+    "> [!IMPORTANT]",
+    "> **Bug found in Google's IFEval.** 2 prompts (key 1122 and key 1129) ask the model to use `#` and `!` a number of times.",
+    "> But the official `letter_frequency` checker only accepts the letters a–z. For any other character, it picks a random letter and counts that letter instead.",
+    "> So these 2 checks never test `#` or `!`, and the score can change by 1 prompt between runs.",
+    "> I fixed the random choice with `random.seed(0)`, so every run gives the same score.",
+    "",
+]
+
 lines.append("| Model | Failed prompts | Empty answers |")
 lines.append("|---|---|---|")
 for name in names:

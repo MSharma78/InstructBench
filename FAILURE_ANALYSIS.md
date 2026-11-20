@@ -2,6 +2,12 @@
 
 Strict mode. Empty answers are counted on their own and are not in the instruction table.
 
+> [!IMPORTANT]
+> **Bug found in Google's IFEval.** 2 prompts (key 1122 and key 1129) ask the model to use `#` and `!` a number of times.
+> But the official `letter_frequency` checker only accepts the letters a–z. For any other character, it picks a random letter and counts that letter instead.
+> So these 2 checks never test `#` or `!`, and the score can change by 1 prompt between runs.
+> I fixed the random choice with `random.seed(0)`, so every run gives the same score.
+
 | Model | Failed prompts | Empty answers |
 |---|---|---|
 | Llama 3.3 70B | 64 | 0 |
