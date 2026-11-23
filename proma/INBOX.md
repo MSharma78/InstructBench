@@ -66,4 +66,4 @@ Confirm or adjust: (a) margin = ±5 percentage points; (b) τ = 0.5 (prompt-leve
 
 ## Resolved
 
-_(Resolved items stay here until the daily sweep archives them.)_
+_(Answered items.)_

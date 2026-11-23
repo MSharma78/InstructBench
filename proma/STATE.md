@@ -5,8 +5,6 @@
 - **current_task:** TASK-002 — Build instruction registry wrapper (instructions/registry.py)
 - **task_started:** (none)
 - **last_completed:** (none)
-- **last_tick:** 2026-06-28
-- **tick_count:** 0
 - **session_start:** 2026-06-28
 
 ## Open Flags

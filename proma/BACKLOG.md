@@ -151,4 +151,4 @@ Within a tier, pick unblocked items first.
 
 ## Completed
 
-_(Items move here temporarily; daily sweep archives them.)_
+_(Finished tasks.)_
