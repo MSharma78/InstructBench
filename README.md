@@ -24,7 +24,7 @@ All three run through [OpenRouter](https://openrouter.ai) with one API key.
 
 **Llama 3.3 70B wins.** It answered every prompt.
 
-Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.9%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](BENCHMARK_REPORT_CORRECTED.md).
+Qwen looked like the winner at first (92%). But it gave no answer for 218 prompts, and my scoring script skipped them. When I counted them as fails, Qwen dropped to 54.9%. Details: [`BENCHMARK_REPORT_CORRECTED.md`](ifeval-replication/BENCHMARK_REPORT_CORRECTED.md).
 
 Total cost: about $14.97 in OpenRouter credits.
 
@@ -53,7 +53,8 @@ python -m venv venv
 venv\Scripts\activate          # Mac/Linux: source venv/bin/activate
 pip install -r requirements.txt
 python -c "import nltk; nltk.download('punkt_tab')"   # data the IFEval checkers need
-cp .env.example .env           # then add your OPENROUTER_API_KEY
+cd ifeval-replication          # all IFEval replication files are here
+cp ../.env.example ../.env     # then add your OPENROUTER_API_KEY
 bash download_ifeval.sh        # gets the official IFEval code and prompts
 ```
 
@@ -68,6 +69,8 @@ python compare.py              # print the table
 Optional: `python failure_analysis.py` writes `FAILURE_ANALYSIS.md`. It shows which instructions each model fails.
 
 ## Files
+
+All files below are in `ifeval-replication/`. Stage 2 files will go in `stage2/`.
 
 | File | What it does |
 |------|--------------|
